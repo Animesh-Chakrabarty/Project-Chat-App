@@ -9,6 +9,7 @@ import Chathead from "./Chathead";
 import { AuthContext } from "../context/AuthContext";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';;
 
 const Chat = () => {
   const { data } = useContext(ChatContext);
@@ -21,7 +22,7 @@ const Chat = () => {
           <div className="user">
             <img src={currentUser.photoURL} alt="" />
             <span>{currentUser.displayName}</span>
-            <button onClick={() => signOut(auth)}>Logout</button>
+            <button onClick={() => signOut(auth)}><ExitToAppIcon style={{ fontSize: '2rem' ,color:'#2196F3' }}/></button>
           </div>
         </div>
       </div>

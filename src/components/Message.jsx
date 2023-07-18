@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/img-redundant-alt */
 import React, { useContext, useEffect, useRef } from "react";
 import { AuthContext } from "../context/AuthContext";
 import { ChatContext } from "../context/ChatContext";
@@ -29,8 +30,9 @@ const Message = ({ message }) => {
         {/* <span></span> */}
       </div>
       <div className="messageContent">
-        <p>{message.text}</p>
-        {message.img && <img src={message.img} alt="" />}
+        {message.text && <p>{message.text}</p>}
+
+        {message.img && <img src={message.img} alt="image" />}
       </div>
     </div>
   );

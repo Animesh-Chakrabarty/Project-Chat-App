@@ -8,7 +8,9 @@ const Navbar = () => {
 
   return (
     <div className="navbar">
-      <span className="logo">CHATOPIA</span>
+      <span className="logo">
+      <img width="36" height="36" src="https://img.icons8.com/color/48/filled-chat.png" alt="filled-chat"/>
+      </span>
     </div>
   );
 };
