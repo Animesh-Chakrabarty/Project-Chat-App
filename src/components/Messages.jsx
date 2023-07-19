@@ -1,3 +1,4 @@
+/* eslint-disable no-lone-blocks */
 import { doc, onSnapshot } from "firebase/firestore";
 import React, { useContext, useEffect, useState } from "react";
 import { ChatContext } from "../context/ChatContext";
@@ -5,6 +6,7 @@ import { db } from "../firebase";
 import Message from "./Message";
 
 const Messages = () => {
+  var prev_date = -1;
   const [messages, setMessages] = useState([]);
   const { data } = useContext(ChatContext);
   // console.log(data);
@@ -23,10 +25,23 @@ const Messages = () => {
 
   return (
     <div className="messages">
-      
-      {messages?.map((m) => (
-        <Message message={m} key={m.id} />
-      ))}
+      {messages?.map((m) => {
+        var Flag = false;
+        if (m.date !== prev_date) {
+          Flag = true;
+          prev_date = m.date;
+        }
+        return (
+          <div>
+            {
+              Flag && <div className="dateDivider">
+                <p>{m.month} {m.date}</p>
+              </div>
+            }
+            <Message message={m} key={m.id} />
+          </div>
+        );
+      })}
     </div>
   );
 };

@@ -19,18 +19,12 @@ const Message = ({ message }) => {
       className={`message ${message.senderId === currentUser.uid && "owner"}`}
     >
       <div className="messageInfo">
-        {/* <img
-          src={
-            message.senderId === currentUser.uid
-              ? currentUser.photoURL
-              : data.user.photoURL
-          }
-          alt=""
-        /> */}
-        {/* <span></span> */}
       </div>
       <div className="messageContent">
-        {message.text && <p>{message.text}</p>}
+        <div>
+          {message.text && <p className="text">{message.text} </p>}
+          {message.time && <p className="time">{message.time}</p>}
+        </div>
 
         {message.img && <img src={message.img} alt="image" />}
       </div>

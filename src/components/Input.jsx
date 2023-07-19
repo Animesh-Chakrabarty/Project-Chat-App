@@ -14,6 +14,21 @@ import { db, storage } from "../firebase";
 import { v4 as uuid } from "uuid";
 import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage";
 
+const months = {
+  1: "Jan",
+  2: "Feb",
+  3: "Mar",
+  4: "Apr",
+  5: "May",
+  6: "Jun",
+  7: "Jul",
+  8: "Aug",
+  9: "Sep",
+  10: "Oct",
+  11: "Nov",
+  12: "Dec",
+};
+
 const Input = () => {
   const [text, setText] = useState("");
   const [img, setImg] = useState(null);
@@ -22,7 +37,11 @@ const Input = () => {
   const { data } = useContext(ChatContext);
 
   const handleSend = async () => {
+    document.getElementById("input-field").focus();
     if (img) {
+      var stamp = new Date();
+      var temp = stamp.getMonth() + 1;
+      var month = months[temp];
       const storageRef = ref(storage, uuid());
 
       const uploadTask = uploadBytesResumable(storageRef, img).then(() => {
@@ -33,39 +52,26 @@ const Input = () => {
               id: uuid(),
               text,
               senderId: currentUser.uid,
-              date: Timestamp.now(),
               img: downloadURL,
+              date: stamp.getDate(),
+              time: stamp.getHours() + ":" + stamp.getMinutes(),
+              month,
             }),
           });
         });
       });
-
-      // uploadTask.on(
-      //   (error) => {
-      //     //TODO:Handle Error
-      //   },
-      //   () => {
-      //      getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-      //       console.log(downloadURL);
-      //       await updateDoc(doc(db, "chats", data.chatId), {
-      //         messages: arrayUnion({
-      //           id: uuid(),
-      //           text,
-      //           senderId: currentUser.uid,
-      //           date: Timestamp.now(),
-      //           img: downloadURL,
-      //         }),
-      //       });
-      //     });
-      //   }
-      // );
     } else {
+      var stamp = new Date();
+      var temp = stamp.getMonth() + 1;
+      var month = months[temp];
       await updateDoc(doc(db, "chats", data.chatId), {
         messages: arrayUnion({
           id: uuid(),
           text,
           senderId: currentUser.uid,
-          date: Timestamp.now(),
+          date: stamp.getDate(),
+          time: stamp.getHours() + ":" + stamp.getMinutes(),
+          month,
         }),
       });
     }
@@ -95,6 +101,8 @@ const Input = () => {
           placeholder="Type something..."
           onChange={(e) => setText(e.target.value)}
           value={text}
+          autoFocus
+          id="input-field"
         />
         <div className="send">
           <img src={Attach} alt="" />
