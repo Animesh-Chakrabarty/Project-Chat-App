@@ -7,7 +7,7 @@ const Chathead = () => {
 
   return (
     <div className="chatHead">
-      <span>{data.user?.displayName}</span>
+      <span>{data?.user?.displayName}</span>
     </div>
   );
 };

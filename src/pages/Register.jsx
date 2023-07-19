@@ -1,19 +1,25 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import Add from "../img/addAvatar.png";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { auth, db, storage } from "../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { doc, setDoc } from "firebase/firestore";
 import { useNavigate, Link } from "react-router-dom";
+import { ChatContext } from "../context/ChatContext";
 
 const Register = () => {
   const [err, setErr] = useState(false);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
+  const { dispatch } = useContext(ChatContext);
+
 
   const handleSubmit = async (e) => {
     setLoading(true);
     e.preventDefault();
+    // dispatch({ type: "CHANGE_USER", payload: {} });
+
+
     const displayName = e.target[0].value;
     const email = e.target[1].value;
     const password = e.target[2].value;
@@ -57,6 +63,8 @@ const Register = () => {
       setErr(true);
       setLoading(false);
     }
+    // dispatch({ type: "CHANGE_USER", payload: {} });
+
   };
 
   return (
