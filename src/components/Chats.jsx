@@ -28,6 +28,7 @@ const Chats = () => {
   const handleSelect = (u) => {
     setCurrentViewing(u[0]);
     const temp = u[1].userInfo;
+    console.log(temp);
     dispatch({ type: "CHANGE_USER", payload: temp });
   };
   // console.log(currentViewing);

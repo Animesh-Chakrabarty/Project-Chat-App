@@ -37,6 +37,7 @@ const Input = () => {
   const { data } = useContext(ChatContext);
 
   const handleSend = async () => {
+    setText("");
     document.getElementById("input-field").focus();
     if (img) {
       var stamp = new Date();
@@ -90,7 +91,6 @@ const Input = () => {
       [data.chatId + ".date"]: serverTimestamp(),
     });
 
-    setText("");
     setImg(null);
   };
   return (
